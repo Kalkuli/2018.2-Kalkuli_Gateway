@@ -15,12 +15,12 @@ def extract_and_interpret():
     file.name = file.filename
     files = {'file': file}
     extract_response = requests.post(
-        'http://172.21.0.1:5001/extract',
+        'https://kalkuli-extraction.herokuapp.com/extract',
         files=files
     )
 
     intepret_response = requests.post(
-        'http://172.25.0.1:5002/interpret',
+        'https://kalkuli-interpretation.herokuapp.com/interpret',
         json=extract_response.json()
     )
 
