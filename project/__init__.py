@@ -1,6 +1,5 @@
 import os
 from flask import Flask, jsonify
-from flask_cors import CORS
 from flasgger import Swagger
 
 from project.api.data_extraction.views import data_extraction_blueprint
@@ -24,8 +23,6 @@ def create_app(script_info=None):
         "static_url_path": "/flasgger_static",
         "specs_route": "/apidocs/"
     })
-
-    CORS(app)
 
     app_settings = os.getenv('APP_SETTINGS')
     app.config.from_object(app_settings)
