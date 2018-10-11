@@ -1,12 +1,13 @@
 from flask import Flask, jsonify, Blueprint, request
 from flasgger import swag_from
+from flask_cors import CORS
 import requests
 
 from project.api.receipts.specs.add import add_specs
 from project.api.receipts.specs.get import get_all
 
 receipts_blueprint = Blueprint('receipts', __name__)
-
+CORS(receipts_blueprint)
 
 @receipts_blueprint.route('/api/v1/receipt', methods=['POST'])
 @swag_from(add_specs)
