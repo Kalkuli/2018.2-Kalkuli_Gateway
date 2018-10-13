@@ -9,7 +9,7 @@ def generate_report():
 
     date = request.get_json()
 
-    receipts = requests.get('http://172.21.0.1:5006/select_date',json=date.json())
+    receipts = requests.post('http://172.21.0.1:5006/select_date',json=date)
     response = requests.post('http://172.22.0.1:5004/report', json=receipts.json())
 
     return jsonify(response.json()), response.status_code
@@ -19,7 +19,7 @@ def save_report():
 
     date = request.get_json()
 
-    receipts = requests.get('http://172.21.0.1:5006/select_date', json= date.json())
+    receipts = requests.post('http://172.21.0.1:5006/select_date', json= date)
     report = requests.post('http://172.22.0.1:5004/report', json=receipts.json())
     response = requests.post('http://172.22.0.1:5004/add_report', json=report.json())
 
