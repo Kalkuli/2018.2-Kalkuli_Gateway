@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, Blueprint, request
+from flask_cors import CORS
 import requests
 
 reports_blueprint = Blueprint('reports', __name__)
+CORS(reports_blueprint)
 
 
 @reports_blueprint.route('/api/v1/report', methods=['POST'])
