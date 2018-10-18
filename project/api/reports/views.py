@@ -11,8 +11,8 @@ def generate_report():
 
     date = request.get_json()
 
-    receipts = requests.post('http://172.21.0.1:5006/select_date',json=date)
-    response = requests.post('http://172.22.0.1:5004/report', json=receipts.json())
+    receipts = requests.post('http://172.24.0.1:5006/select_date',json=date)
+    response = requests.post('http://172.23.0.1:5004/report', json=receipts.json())
 
     return jsonify(response.json()), response.status_code
 
@@ -20,19 +20,22 @@ def generate_report():
 def save_report():
 
     date = request.get_json()
-    receipts = requests.post('http://172.21.0.1:5006/select_date', json= date)
-    report_data = requests.post('http://172.22.0.1:5004/report', json=receipts.json())
+    receipts = requests.post('http://172.24.0.1:5006/select_date', json= date)
+    report_data = requests.post('http://172.23.0.1:5004/report', json=receipts.json())
 
     period = date.get('period')
     date_to = period.get('date_to')
     date_from = period.get('date_from')
-    total_cost = report_data.json().get('total_cost')
 
     data = {
         'date_from': date_from,
-        'date_to': date_to,
-        'total_cost': total_cost
+        'date_to': date_to
     }
-    response = requests.post('http://172.22.0.1:5004/add_report', json=data)
+    response = requests.post('http://172.23.0.1:5004/add_report', json=data)
 
+    return jsonify(response.json()), response.status_code
+
+@reports_blueprint.route('/api/v1/get_all_reports', methods=['GET'])
+def get_all_reports():
+    response = requests.get('http://172.23.0.1:5004/get_reports')
     return jsonify(response.json()), response.status_code
