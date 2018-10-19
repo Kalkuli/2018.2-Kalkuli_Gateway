@@ -11,8 +11,8 @@ def generate_report():
 
     date = request.get_json()
 
-    receipts = requests.post('http://172.24.0.1:5006/select_date',json=date)
-    response = requests.post('http://172.23.0.1:5004/report', json=receipts.json())
+    receipts = requests.post('http://kalkuli-receipts.herokuapp.com/select_date',json=date)
+    response = requests.post('http://kalkuli-reports.herokuapp.com/report', json=receipts.json())
 
     return jsonify(response.json()), response.status_code
 
@@ -20,8 +20,8 @@ def generate_report():
 def save_report():
 
     date = request.get_json()
-    receipts = requests.post('http://172.24.0.1:5006/select_date', json= date)
-    report_data = requests.post('http://172.23.0.1:5004/report', json=receipts.json())
+    receipts = requests.post('http://kalkuli-receipts.herokuapp.com/select_date', json= date)
+    report_data = requests.post('http://kalkuli-reports.herokuapp.com/report', json=receipts.json())
 
     period = date.get('period')
     date_to = period.get('date_to')
@@ -31,11 +31,11 @@ def save_report():
         'date_from': date_from,
         'date_to': date_to
     }
-    response = requests.post('http://172.23.0.1:5004/add_report', json=data)
+    response = requests.post('http://kalkuli-reports.herokuapp.com/add_report', json=data)
 
     return jsonify(response.json()), response.status_code
 
 @reports_blueprint.route('/api/v1/get_all_reports', methods=['GET'])
 def get_all_reports():
-    response = requests.get('http://172.23.0.1:5004/get_reports')
+    response = requests.get('http://kalkuli-reports.herokuapp.com/get_reports')
     return jsonify(response.json()), response.status_code
