@@ -24,6 +24,7 @@ def add_receipt():
 
 @receipts_blueprint.route('/api/v1/receipts', methods=['GET'])
 @swag_from(get_all)
-def get_all_receipts():
+def get_receipts():
     response = requests.get('http://kalkuli-receipts.herokuapp.com/receipts')
     return jsonify(response.json()), response.status_code
+
