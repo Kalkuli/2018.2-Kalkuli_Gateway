@@ -8,11 +8,12 @@ then
     echo "Skipping deployment on branch=$TRAVIS_BRANCH, PR=$TRAVIS_PULL_REQUEST"
     exit 0;
 fi
+pip3 install zappa
+zappa update dev
+# docker login -u _ -p "$HEROKU_TOKEN" registry.heroku.com
 
-docker login -u _ -p "$HEROKU_TOKEN" registry.heroku.com
+# docker build -t registry.heroku.com/kalkuli-gateway/web -f Dockerfile-prod .
 
-docker build -t registry.heroku.com/kalkuli-gateway/web -f Dockerfile-prod .
+# docker push registry.heroku.com/kalkuli-gateway/web
 
-docker push registry.heroku.com/kalkuli-gateway/web
-
-heroku container:release web -a kalkuli-gateway
+# heroku container:release web -a kalkuli-gateway
