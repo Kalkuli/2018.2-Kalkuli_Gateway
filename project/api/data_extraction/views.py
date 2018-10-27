@@ -21,7 +21,7 @@ def extract_and_interpret():
     )
 
     intepret_response = requests.post(
-        'http://kalkuli-interpretation.herokuapp.com/interpret',
+        'https://nvv696n4mc.execute-api.sa-east-1.amazonaws.com/dev/interpret',
         json=extract_response.json()
     )
 
