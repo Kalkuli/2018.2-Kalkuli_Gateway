@@ -6,11 +6,11 @@ import requests
 users_blueprint = Blueprint('users', __name__)
 CORS(users_blueprint)
 
-@reports_blueprint.route('/api/v1/company', methods=['POST'])
+@users_blueprint.route('/api/v1/company', methods=['POST'])
 def save_company():
 
     info = request.get_json()
-
-    response = requests.post('http://kalkuli-users.herokuapp.com/add_company', json=info)
+    print("AHUEHUAHUEHUEAUHEUAHEUHU")
+    response = requests.post('http://172.20.0.1:5003/add_company', json=info)
 
     return jsonify(response.json()), response.status_code
