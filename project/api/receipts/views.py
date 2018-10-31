@@ -36,6 +36,13 @@ def delete_receipt(receipt_id):
     return jsonify(response.json()), response.status_code
 
 @receipts_blueprint.route('/api/v1/tags', methods=['GET'])
-def get_receipts():
+def get_tags():
     response = requests.get('http://kalkuli-receipts.herokuapp.com/tags')
+    return jsonify(response.json()), response.status_code
+
+@receipts_blueprint.route('/api/v1/update_tag/<int:receipt_id>', methods=['PATCH'])
+def update_tag(receipt_id):
+    response = requests.patch(
+        'http://kalkuli-receipts.herokuapp.com/update_tag/%i' % receipt_id
+    )
     return jsonify(response.json()), response.status_code
