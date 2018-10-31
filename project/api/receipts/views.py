@@ -34,3 +34,8 @@ def delete_receipt(receipt_id):
         'http://kalkuli-receipts.herokuapp.com/receipt/%i' % receipt_id
     )
     return jsonify(response.json()), response.status_code
+
+@receipts_blueprint.route('/api/v1/tags', methods=['GET'])
+def get_receipts():
+    response = requests.get('http://kalkuli-receipts.herokuapp.com/tags')
+    return jsonify(response.json()), response.status_code
