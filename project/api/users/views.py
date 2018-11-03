@@ -10,7 +10,6 @@ CORS(users_blueprint)
 def save_company():
 
     info = request.get_json()
-    print("AHUEHUAHUEHUEAUHEUAHEUHU")
     response = requests.post('http://172.20.0.1:5003/add_company', json=info)
 
     return jsonify(response.json()), response.status_code
