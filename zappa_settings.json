@@ -1,9 +1,17 @@
 {
-    "dev": {
+    "prod": {
         "app_function": "manage.app",
         "aws_region": "sa-east-1",
         "project_name": "kalkuligateway",
         "runtime": "python3.6",
-        "s3_bucket": "kalkuli-gateway-bucket"
+        "s3_bucket": "kalkuli-gateway-prod-bucket"
+    },
+
+    "hom": {
+        "app_function": "manage.app",
+        "aws_region": "sa-east-1",
+        "project_name": "kalkuligateway",
+        "runtime": "python3.6",
+        "s3_bucket": "kalkuli-gateway-homolog-bucket"
     }
 }
