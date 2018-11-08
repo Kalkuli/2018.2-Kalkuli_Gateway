@@ -8,7 +8,6 @@ from project.api.reports.views import reports_blueprint
 from project.api.export.views import exports_blueprint
 from project.api.users.views import users_blueprint
 
-
 def create_app(script_info=None):
 
     app = Flask(__name__)
