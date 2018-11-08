@@ -25,3 +25,13 @@ def login_user():
         json=data
     )
     return jsonify(response.json()), response.status_code
+
+@users_blueprint.route('/api/v1/auth/login', methods=['POST'])
+def login_user():
+    data = request.get_json()
+
+    response = requests.post(
+        'http://172.24.0.1:5003/auth/login',
+        json=data
+    )
+    return jsonify(response.json()), response.status_code
