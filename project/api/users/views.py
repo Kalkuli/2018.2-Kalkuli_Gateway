@@ -31,7 +31,7 @@ def login_user():
     data = request.get_json()
 
     response = requests.post(
-        'http://172.24.0.1:5003/auth/login',
+        'https://kalkuli-users-hom.herokuapp.com/auth/login',
         json=data
     )
     return jsonify(response.json()), response.status_code
