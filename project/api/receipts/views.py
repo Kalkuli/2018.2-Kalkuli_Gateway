@@ -46,3 +46,11 @@ def update_tag(receipt_id):
         'http://kalkuli-receipts.herokuapp.com/update_tag/%i' % receipt_id
     )
     return jsonify(response.json()), response.status_code
+
+@receipts_blueprint.route('/api/v1/create_tag', methods=['POST'])
+def create_tag():
+    data = request.get_json()
+
+    response = requests.post('http://172.22.0.1:5006/create_tag', json=data)
+
+    return jsonify(response.json()), response.status_code
