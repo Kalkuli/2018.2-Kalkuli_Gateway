@@ -26,12 +26,3 @@ def login_user():
     )
     return jsonify(response.json()), response.status_code
 
-@users_blueprint.route('/api/v1/auth/login', methods=['POST'])
-def login_user():
-    data = request.get_json()
-
-    response = requests.post(
-        'https://kalkuli-users-hom.herokuapp.com/auth/login',
-        json=data
-    )
-    return jsonify(response.json()), response.status_code
