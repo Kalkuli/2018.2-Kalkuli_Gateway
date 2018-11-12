@@ -12,9 +12,9 @@ def export_csv():
     
     date = request.get_json()
 
-    filter_receipts = requests.post('http://kalkuli-receipts.herokuapp.com/select_date',json=date)
-    report = requests.post('http://kalkuli-reports.herokuapp.com/report', json=filter_receipts.json())
+    filter_receipts = requests.post('https://kalkuli-receipts-hom.herokuapp.com/select_date',json=date)
+    report = requests.post('https://kalkuli-reports-hom.herokuapp.com/report', json=filter_receipts.json())
 
-    response = requests.post('http://172.26.0.1:5007/export', json=report.json())
+    response = requests.post('https://b4iplfd1yj.execute-api.sa-east-1.amazonaws.com/hom/export', json=report.json())
     
     return response.text, response.status_code

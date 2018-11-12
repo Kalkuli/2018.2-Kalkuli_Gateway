@@ -15,7 +15,7 @@ def add_receipt():
     data = request.get_json()
 
     response = requests.post(
-        'http://kalkuli-receipts.herokuapp.com/receipt',
+        'https://kalkuli-receipts-hom.herokuapp.com/receipt',
         json=data
     )
 
@@ -25,25 +25,25 @@ def add_receipt():
 @receipts_blueprint.route('/api/v1/receipts', methods=['GET'])
 @swag_from(get_all)
 def get_receipts():
-    response = requests.get('http://kalkuli-receipts.herokuapp.com/receipts')
+    response = requests.get('https://kalkuli-receipts-hom.herokuapp.com/receipts')
     return jsonify(response.json()), response.status_code
 
 @receipts_blueprint.route('/api/v1/receipt/<int:receipt_id>', methods=['DELETE'])
 def delete_receipt(receipt_id):
     response = requests.delete(
-        'http://kalkuli-receipts.herokuapp.com/receipt/%i' % receipt_id
+        'https://kalkuli-receipts-hom.herokuapp.com/receipt/%i' % receipt_id
     )
     return jsonify(response.json()), response.status_code
 
 @receipts_blueprint.route('/api/v1/tags', methods=['GET'])
 def get_tags():
-    response = requests.get('http://kalkuli-receipts.herokuapp.com/tags')
+    response = requests.get('https://kalkuli-receipts-hom.herokuapp.com/tags')
     return jsonify(response.json()), response.status_code
 
 @receipts_blueprint.route('/api/v1/update_tag/<int:receipt_id>', methods=['PATCH'])
 def update_tag(receipt_id):
     response = requests.patch(
-        'http://kalkuli-receipts.herokuapp.com/update_tag/%i' % receipt_id
+        'https://kalkuli-receipts-hom.herokuapp.com/update_tag/%i' % receipt_id
     )
     return jsonify(response.json()), response.status_code
 
@@ -51,6 +51,6 @@ def update_tag(receipt_id):
 def create_tag():
     data = request.get_json()
 
-    response = requests.post('http://172.22.0.1:5006/create_tag', json=data)
+    response = requests.post('https://kalkuli-receipts-hom.herokuapp.com/create_tag', json=data)
 
     return jsonify(response.json()), response.status_code
