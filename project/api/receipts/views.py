@@ -22,11 +22,39 @@ def add_receipt():
     return jsonify(response.json()), response.status_code
 
 
-@receipts_blueprint.route('/api/v1/receipts', methods=['GET'])
+@receipts_blueprint.route('/api/v1/<company_id>/receipts', methods=['GET'])
 @swag_from(get_all)
-def get_receipts():
-    response = requests.get('https://kalkuli-receipts-hom.herokuapp.com/receipts')
-    return jsonify(response.json()), response.status_code
+def get_receipts(company_id):
+    auth_bearer = request.headers.get('Authorization')
+
+    if not auth_bearer:
+        error_message = {
+            'status': 'fail',
+            'message': 'Unauthorized'
+        }
+        return jsonify(error_message), 401
+
+    header = {'Authorization': auth_bearer}
+    auth_response = requests.get('https://kalkuli-users-hom.herokuapp.com/auth/status', headers=header)
+    user_company_id = None
+
+    if auth_response.status_code == 200:
+        content = auth_response.json()
+        user_company_id = content.get('data').get('company_id')
+    else:
+        return jsonify(auth_response.json()), auth_response.status_code
+
+    if user_company_id == int(company_id):
+        response = requests.get(f'http://172.27.0.1:5006/{company_id}/receipts')
+        return jsonify(response.json()), response.status_code
+    else:
+        error_message = {
+            'status': 'fail',
+            'message': 'Access Forbidden'
+        }
+        return jsonify(error_message), 403
+
+
 
 @receipts_blueprint.route('/api/v1/receipt/<int:receipt_id>', methods=['DELETE'])
 def delete_receipt(receipt_id):
