@@ -39,3 +39,10 @@ def save_report():
 def get_all_reports():
     response = requests.get('https://kalkuli-reports-hom.herokuapp.com/get_reports')
     return jsonify(response.json()), response.status_code
+
+@reports_blueprint.route('/api/v1/report/<int:report_id>', methods=['DELETE'])
+def delete_report(report_id):
+    response = requests.delete(
+        'https://kalkuli-reports-hom.herokuapp.com/report/%i' % report_id
+    )
+    return jsonify(response.json()), response.status_code
