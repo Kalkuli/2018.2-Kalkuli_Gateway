@@ -38,7 +38,7 @@ def get_auth_status(request):
         }
         return response
 
-def needs_authentication(f):
+def needs_authentication_with_company_id(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         auth_status = get_auth_status(request)
@@ -60,4 +60,17 @@ def needs_authentication(f):
 
         return f(*args, **kwargs)
     
+    return decorated_function
+
+
+def needs_authentication(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        auth_status = get_auth_status(request)
+
+        if not auth_status.get('is_logged'):
+            return jsonify(auth_status.get('error').get('content')), auth_status.get('error').get('status_code')
+
+        return f(*args, **kwargs)
+
     return decorated_function
