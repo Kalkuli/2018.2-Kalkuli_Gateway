@@ -6,6 +6,8 @@ import requests
 from project.api.receipts.specs.add import add_specs
 from project.api.receipts.specs.get import get_all
 
+from project.api.shared.auth_utils import needs_authentication
+
 receipts_blueprint = Blueprint('receipts', __name__)
 CORS(receipts_blueprint)
 
@@ -24,54 +26,32 @@ def add_receipt():
 
 @receipts_blueprint.route('/api/v1/<company_id>/receipts', methods=['GET'])
 @swag_from(get_all)
+@needs_authentication
 def get_receipts(company_id):
-    auth_bearer = request.headers.get('Authorization')
+    response = requests.get(f'http://172.27.0.1:5006/{company_id}/receipts')
+    return jsonify(response.json()), response.status_code
 
-    if not auth_bearer:
-        error_message = {
-            'status': 'fail',
-            'message': 'Unauthorized'
-        }
-        return jsonify(error_message), 401
-
-    header = {'Authorization': auth_bearer}
-    auth_response = requests.get('https://kalkuli-users-hom.herokuapp.com/auth/status', headers=header)
-    user_company_id = None
-
-    if auth_response.status_code == 200:
-        content = auth_response.json()
-        user_company_id = content.get('data').get('company_id')
-    else:
-        return jsonify(auth_response.json()), auth_response.status_code
-
-    if user_company_id == int(company_id):
-        response = requests.get(f'http://172.27.0.1:5006/{company_id}/receipts')
-        return jsonify(response.json()), response.status_code
-    else:
-        error_message = {
-            'status': 'fail',
-            'message': 'Access Forbidden'
-        }
-        return jsonify(error_message), 403
-
-
-
-@receipts_blueprint.route('/api/v1/receipt/<int:receipt_id>', methods=['DELETE'])
-def delete_receipt(receipt_id):
+@receipts_blueprint.route('/api/v1/<company_id>/receipt/<int:receipt_id>', methods=['DELETE'])
+@needs_authentication
+def delete_receipt(company_id, receipt_id):
     response = requests.delete(
-        'https://kalkuli-receipts-hom.herokuapp.com/receipt/%i' % receipt_id
+        f'http://172.27.0.1:5006/{company_id}/receipt/{receipt_id}'
     )
     return jsonify(response.json()), response.status_code
 
-@receipts_blueprint.route('/api/v1/tags', methods=['GET'])
-def get_tags():
-    response = requests.get('https://kalkuli-receipts-hom.herokuapp.com/tags')
+@receipts_blueprint.route('/api/v1/<company_id>/tags', methods=['GET'])
+@needs_authentication
+def get_tags(company_id):
+    response = requests.get(f'http://172.27.0.1:5006/{company_id}/tags')
     return jsonify(response.json()), response.status_code
 
-@receipts_blueprint.route('/api/v1/update_tag/<int:receipt_id>', methods=['PATCH'])
-def update_tag(receipt_id):
+@receipts_blueprint.route('/api/v1/<company_id>/update_tag/<int:receipt_id>', methods=['PATCH'])
+@needs_authentication
+def update_tag(company_id, receipt_id):
+    data = request.get_json()
     response = requests.patch(
-        'https://kalkuli-receipts-hom.herokuapp.com/update_tag/%i' % receipt_id
+        f'http://172.27.0.1:5006/{company_id}/update_tag/{receipt_id}',
+        json=data
     )
     return jsonify(response.json()), response.status_code
 
@@ -79,6 +59,6 @@ def update_tag(receipt_id):
 def create_tag():
     data = request.get_json()
 
-    response = requests.post('https://kalkuli-receipts-hom.herokuapp.com/create_tag', json=data)
+    response = requests.post('http://172.27.0.1:5006/create_tag', json=data)
 
     return jsonify(response.json()), response.status_code
