@@ -64,3 +64,13 @@ def create_tag():
     response = requests.post('http://172.27.0.1:5006/create_tag', json=data)
 
     return jsonify(response.json()), response.status_code
+
+@receipts_blueprint.route('/api/v1/<company_id>/update_receipt/<int:receipt_id>', methods=['PUT'])
+@needs_authentication_with_company_id
+def update_receipt(company_id, receipt_id):
+    data = request.get_json()
+    response = requests.put(
+        f'http://172.22.0.1:5006/{company_id}/update_receipt/{receipt_id}',
+        json=data
+    )
+    return jsonify(response.json()), response.status_code
