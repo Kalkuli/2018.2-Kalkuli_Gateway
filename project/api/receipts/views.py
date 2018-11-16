@@ -29,21 +29,21 @@ def add_receipt():
 @swag_from(get_all)
 @needs_authentication_with_company_id
 def get_receipts(company_id):
-    response = requests.get(f'http://172.27.0.1:5006/{company_id}/receipts')
+    response = requests.get(f'http://172.20.0.1:5006/{company_id}/receipts')
     return jsonify(response.json()), response.status_code
 
 @receipts_blueprint.route('/api/v1/<company_id>/receipt/<int:receipt_id>', methods=['DELETE'])
 @needs_authentication_with_company_id
 def delete_receipt(company_id, receipt_id):
     response = requests.delete(
-        f'http://172.27.0.1:5006/{company_id}/receipt/{receipt_id}'
+        f'http://172.20.0.1:5006/{company_id}/receipt/{receipt_id}'
     )
     return jsonify(response.json()), response.status_code
 
 @receipts_blueprint.route('/api/v1/<company_id>/tags', methods=['GET'])
 @needs_authentication_with_company_id
 def get_tags(company_id):
-    response = requests.get(f'http://172.27.0.1:5006/{company_id}/tags')
+    response = requests.get(f'http://172.20.0.1:5006/{company_id}/tags')
     return jsonify(response.json()), response.status_code
 
 @receipts_blueprint.route('/api/v1/<company_id>/update_tag/<int:receipt_id>', methods=['PATCH'])
@@ -51,7 +51,7 @@ def get_tags(company_id):
 def update_tag(company_id, receipt_id):
     data = request.get_json()
     response = requests.patch(
-        f'http://172.27.0.1:5006/{company_id}/update_tag/{receipt_id}',
+        f'http://172.20.0.1:5006/{company_id}/update_tag/{receipt_id}',
         json=data
     )
     return jsonify(response.json()), response.status_code
@@ -61,7 +61,7 @@ def update_tag(company_id, receipt_id):
 def create_tag():
     data = request.get_json()
 
-    response = requests.post('http://172.27.0.1:5006/create_tag', json=data)
+    response = requests.post('http://172.20.0.1:5006/create_tag', json=data)
 
     return jsonify(response.json()), response.status_code
 
@@ -70,7 +70,7 @@ def create_tag():
 def update_receipt(company_id, receipt_id):
     data = request.get_json()
     response = requests.put(
-        f'http://172.22.0.1:5006/{company_id}/update_receipt/{receipt_id}',
+        f'http://172.20.0.1:5006/{company_id}/update_receipt/{receipt_id}',
         json=data
     )
     return jsonify(response.json()), response.status_code
