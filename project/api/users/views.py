@@ -2,6 +2,7 @@ from flask import Flask, jsonify, Blueprint, request
 from flasgger import swag_from
 from flask_cors import CORS
 import requests
+import os
 
 users_blueprint = Blueprint('users', __name__)
 CORS(users_blueprint)
@@ -11,7 +12,7 @@ def register_user():
     data = request.get_json()
 
     response = requests.post(
-        'https://kalkuli-users-hom.herokuapp.com/auth/register',
+        os.environ.get('USERS_PATH') + '/auth/register',
         json=data
     )
     return jsonify(response.json()), response.status_code
@@ -21,7 +22,7 @@ def login_user():
     data = request.get_json()
 
     response = requests.post(
-        'https://kalkuli-users-hom.herokuapp.com/auth/login',
+        os.environ.get('USERS_PATH') + '/auth/login',
         json=data
     )
     return jsonify(response.json()), response.status_code

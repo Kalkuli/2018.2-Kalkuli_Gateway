@@ -20,7 +20,7 @@ def get_auth_status(request):
         return response
 
     header = {'Authorization': auth_bearer}
-    auth_response = requests.get('https://kalkuli-users-hom.herokuapp.com/auth/status', headers=header)
+    auth_response = requests.get(os.environ.get('USERS_PATH') + '/auth/status', headers=header)
 
     if auth_response.status_code != 200:
         response = {
