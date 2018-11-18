@@ -12,3 +12,7 @@ class TestingConfig(BaseConfig):
 
 class ProductionConfig(BaseConfig):
     pass
+
+
+class HomologConfig(BaseConfig):
+    pass

@@ -1,8 +1,9 @@
 from flask import Flask, jsonify, Blueprint, request
 from flasgger import swag_from
 from flask_cors import CORS
-
 import requests
+import os
+
 
 from project.api.data_extraction.specs.extract import extract_data
 
@@ -15,7 +16,7 @@ def interpret():
     post_data = request.get_json()
 
     intepret_response = requests.post(
-        'https://nvv696n4mc.execute-api.sa-east-1.amazonaws.com/dev/interpret',
+        os.environ.get('INTERPRETATION_PATH') + '/interpret',
         json=post_data
     )
 
