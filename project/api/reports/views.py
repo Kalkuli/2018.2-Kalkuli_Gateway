@@ -25,21 +25,8 @@ def generate_report():
 def save_report():
 
     date = request.get_json()
-    company_id = date.get('company_id')
 
-    receipts = requests.post(os.environ.get('RECEIPTS_PATH') + f'/{company_id}/select_date', json=date)
-    report_data = requests.post(os.environ.get('REPORTS_PATH') + '/report', json=receipts.json())
-
-    period = date.get('period')
-    date_to = period.get('date_to')
-    date_from = period.get('date_from')
-
-    data = {
-        'company_id': company_id,
-        'date_from': date_from,
-        'date_to': date_to
-    }
-    response = requests.post(os.environ.get('REPORTS_PATH') + '/add_report', json=data)
+    response = requests.post(os.environ.get('REPORTS_PATH') + '/add_report', json=date )
 
     return jsonify(response.json()), response.status_code
 
