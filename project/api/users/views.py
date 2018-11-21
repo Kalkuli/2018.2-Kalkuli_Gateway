@@ -27,3 +27,20 @@ def login_user():
     )
     return jsonify(response.json()), response.status_code
 
+@users_blueprint.route('/api/v1/auth/logout', methods=['GET'])
+def logout_user():
+    auth_bearer = requests.headers.get('Authorization')
+    error_response = {
+        'message': 'Invalid payload',
+        'status': 'fail'
+    }
+
+    if not auth_bearer:
+        return jsonify(error_response), 401
+
+    header = {'Authorization': auth_bearer}
+    response = requests.get(
+        os.environ.get('USERS_PATH') + '/auth/logout',
+        headers=header
+    )
+    return jsonify(response.json()), response.status_code
