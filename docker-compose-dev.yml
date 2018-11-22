@@ -13,7 +13,7 @@ services:
       - FLASK_ENV=development
       - APP_SETTINGS=project.config.DevelopmentConfig
       - RECEIPTS_PATH=https://kalkuli-receipts-hom.herokuapp.com
-      - EXPORT_PATH=https://b4iplfd1yj.execute-api.sa-east-1.amazonaws.com/hom
+      - EXPORT_PATH=https://kalkuli-export.herokuapp.com
       - EXTRACTION_PATH=https://kalkuli-extraction.herokuapp.com
       - REPORTS_PATH=https://kalkuli-reports-hom.herokuapp.com
       - USERS_PATH=https://kalkuli-users-hom.herokuapp.com

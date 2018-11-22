@@ -22,5 +22,4 @@ def export_csv():
     report = requests.post(os.environ.get('REPORTS_PATH') + '/report', json=filter_receipts.json())
 
     response = requests.post(os.environ.get('EXPORT_PATH') + '/export', json=report.json())
-    
     return response.text, response.status_code
