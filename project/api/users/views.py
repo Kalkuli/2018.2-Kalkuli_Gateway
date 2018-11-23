@@ -29,7 +29,7 @@ def login_user():
 
 @users_blueprint.route('/api/v1/auth/logout', methods=['GET'])
 def logout_user():
-    auth_bearer = requests.headers.get('Authorization')
+    auth_bearer = request.headers.get('Authorization')
     error_response = {
         'message': 'Invalid payload',
         'status': 'fail'
