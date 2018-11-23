@@ -8,7 +8,7 @@
         "environment_variables": {
             "FLASK_ENV": "production",
             "RECEIPTS_PATH": "https://kalkuli-receipts.herokuapp.com",
-            "EXPORT_PATH": "https://zkwnbpeq95.execute-api.sa-east-1.amazonaws.com/prod",
+            "EXPORT_PATH": "https://kalkuli-export.herokuapp.com",
             "EXTRACTION_PATH": "https://kalkuli-extraction.herokuapp.com",
             "REPORTS_PATH": "https://kalkuli-reports.herokuapp.com",
             "USERS_PATH": "https://kalkuli-users.herokuapp.com",
@@ -26,7 +26,7 @@
         "environment_variables": {
             "FLASK_ENV": "homologation",
             "RECEIPTS_PATH" : "https://kalkuli-receipts-hom.herokuapp.com",
-            "EXPORT_PATH": "https://b4iplfd1yj.execute-api.sa-east-1.amazonaws.com/hom",
+            "EXPORT_PATH": "https://kalkuli-export.herokuapp.com",
             "EXTRACTION_PATH": "https://kalkuli-extraction.herokuapp.com",
             "REPORTS_PATH": "https://kalkuli-reports-hom.herokuapp.com",
             "USERS_PATH": "https://kalkuli-users-hom.herokuapp.com",
