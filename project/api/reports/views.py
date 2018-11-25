@@ -8,18 +8,6 @@ from project.api.shared.auth_utils import needs_authentication_with_company_id, 
 reports_blueprint = Blueprint('reports', __name__)
 CORS(reports_blueprint)
 
-
-@reports_blueprint.route('/api/v1/report', methods=['POST'])
-@needs_authentication
-def generate_report():
-    date = request.get_json()
-    company_id = date.get('company_id')
-
-    receipts = requests.post(os.environ.get('RECEIPTS_PATH') + f'/{company_id}/select_date', json=date)
-    response = requests.post(os.environ.get('RECEIPTS_PATH') + '/report', json=receipts.json())
-
-    return jsonify(response.json()), response.status_code
-
 @reports_blueprint.route('/api/v1/save_report', methods=['POST'])
 @needs_authentication
 def save_report():
