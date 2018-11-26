@@ -1,5 +1,8 @@
 # 2018.2-Kalkuli_Gateway
-API Gateway para o Kalkuli, servindo de camada de comunicação entre os microsserviços e o Front-End do sistema.
+
+<a href="https://travis-ci.com/Kalkuli/2018.2-Kalkuli_Front-End"><img src="https://travis-ci.com/Kalkuli/2018.2-Kalkuli_Gateway.svg?branch=master" /></a>
+
+API Gateway para o Kalkuli, servindo de camada de comunicação entre os microsserviços e o Front-End do sistema.   
 
 
 ## Ambientes
