@@ -6,7 +6,7 @@ from project.api.data_extraction.views import data_extraction_blueprint
 from project.api.receipts.views import receipts_blueprint
 from project.api.reports.views import reports_blueprint
 from project.api.export.views import exports_blueprint
-
+from project.api.users.views import users_blueprint
 
 def create_app(script_info=None):
 
@@ -33,5 +33,6 @@ def create_app(script_info=None):
     app.register_blueprint(receipts_blueprint)
     app.register_blueprint(reports_blueprint)
     app.register_blueprint(exports_blueprint)
+    app.register_blueprint(users_blueprint)
 
     return app
